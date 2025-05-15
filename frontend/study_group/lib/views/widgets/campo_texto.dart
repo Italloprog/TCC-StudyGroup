@@ -24,7 +24,7 @@ class _CampoTextoState extends State<CampoTexto> {
               style: const TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
               decoration: InputDecoration(
                 filled: true,
-                fillColor: const Color.fromARGB(255, 255, 255, 255),
+                fillColor: const Color.fromARGB(255, 217, 217, 217),
                 border: const OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(10)),
                   borderSide: BorderSide.none,

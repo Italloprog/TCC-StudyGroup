@@ -21,7 +21,7 @@ class _LoginPageState extends State<LoginPage> {
         child: Center(
           child: Column(
             children: [
-              Text('Bem-vindo ao StudyGroup'),
+              Text('Bem-vindo ao StudyGroup', style: TextStyle(fontSize: 20),),
               Container(
                 margin: EdgeInsets.all(10),
                 width: 200,
@@ -37,14 +37,16 @@ class _LoginPageState extends State<LoginPage> {
                 height: 90,
               ),
         
-              Botao(label: 'LOGIN', onPressed: (){}),
+              Botao(label: 'LOGIN', onPressed: (){Navigator.pushNamed(context, '/pagina_inicial');},),
         
               SizedBox(
                 height: 20,
               ),
         
               InkWell(
-                onTap: (){},
+                onTap: (){
+                  Navigator.pushNamed(context, '/cadastro');
+                },
                 child: Text('CADASTRE-SE', 
                 style: TextStyle( 
                   fontSize: 18,
