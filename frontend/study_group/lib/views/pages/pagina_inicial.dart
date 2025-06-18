@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:study_group/views/widgets/Icone_grande_app.dart';
 import 'package:study_group/views/widgets/botao.dart';
 import 'package:study_group/views/widgets/scafolld_base.dart';
 
@@ -16,14 +17,7 @@ class _PaginaInicialState extends State<PaginaInicial> {
       body: Column(
         children: [
           
-          Container(
-            margin: const EdgeInsets.all(10),
-            width: 200,
-            height: 200,
-            child: ClipOval(
-              child: Image.asset('lib/assets/iconeApp2.png'),
-            ),
-          ),
+          IconeGrandeApp(),
 
           const SizedBox(
             height: 20,
@@ -33,11 +27,15 @@ class _PaginaInicialState extends State<PaginaInicial> {
           const SizedBox(
             height: 60,
           ),
-          Botao(label: 'Criar novo grupo', onPressed: (){}),
+          Botao(label: 'Criar novo grupo', onPressed: (){
+            Navigator.pushNamed(context, '/novo_grupo');
+          }),
           const SizedBox(
             height: 20,
           ),
-          Botao(label: 'Entrar em grupo existente', onPressed: (){})
+          Botao(label: 'Entrar em grupo existente', onPressed: (){
+            Navigator.pushNamed(context, '/encontrar_grupo');
+          })
         ],
       )
     );

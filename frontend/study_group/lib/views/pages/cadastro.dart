@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:study_group/views/widgets/Icone_grande_app.dart';
 import 'package:study_group/views/widgets/botao.dart';
 import 'package:study_group/views/widgets/campo_texto.dart';
 
@@ -47,13 +48,9 @@ class _CadastroPageState extends State<CadastroPage> {
                     ),
                   Text('Cadastrar-se', style: TextStyle(fontSize: 20),),
                   Spacer(),
-                  Container(
-                    margin: const EdgeInsets.all(10),
-                    width: 120,
-                    height: 120,
-                    child: ClipOval(
-                      child: Image.asset('lib/assets/iconeApp2.png'),
-                    ),
+                  IconeGrandeApp(
+                    altura: 120,
+                    largura: 120,
                   ),
                 ],
               ),

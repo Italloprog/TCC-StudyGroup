@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:study_group/views/pages/cadastro.dart';
+import 'package:study_group/views/pages/encontrar_grupo.dart';
 import 'package:study_group/views/pages/login.dart';
+import 'package:study_group/views/pages/novo_grupo.dart';
 import 'package:study_group/views/pages/pagina_inicial.dart';
+import 'package:study_group/views/pages/perfil.dart';
+import 'package:study_group/views/pages/sobre.dart';
 
 void main() {
   runApp(const MyApp());
@@ -38,6 +42,10 @@ class MyApp extends StatelessWidget {
         '/login' : (context) => const LoginPage(),
         '/cadastro' : (context) => const CadastroPage(),
         '/pagina_inicial' : (context) => const PaginaInicial(),
+        '/sobre' : (context) => const SobrePage(),
+        '/perfil' : (context) => const PerfilPage(),
+        '/novo_grupo' : (context) => const NovoGrupoPage(),
+        '/encontrar_grupo' : (context) => const EncontrarGrupoPage(),
       },
 
     );

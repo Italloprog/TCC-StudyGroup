@@ -19,6 +19,13 @@ class _ScafolldBaseState extends State<ScafolldBase> {
         title: Text(widget.title ?? 'StudyGroup', style: const TextStyle(color: Colors.white),),
         centerTitle: true,
         backgroundColor: const Color.fromARGB(255, 58, 17, 89),
+        leading: Builder(
+          builder: (context) => IconButton(
+            onPressed: () {
+              Scaffold.of(context).openDrawer();
+              } ,
+            icon: CircleAvatar(backgroundImage: NetworkImage('https://pbs.twimg.com/media/FsGrGIBXgAA1OQI.jpg',)),
+            )),
       ),
       drawer: DrawerBase(),
       body: Center(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:study_group/views/widgets/Icone_grande_app.dart';
 import 'package:study_group/views/widgets/botao.dart';
 import 'package:study_group/views/widgets/campo_texto.dart';
 
@@ -22,13 +23,8 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             children: [
               Text('Bem-vindo ao StudyGroup', style: TextStyle(fontSize: 20),),
-              Container(
-                margin: EdgeInsets.all(10),
-                width: 200,
-                height: 200,
-                child: ClipOval(child: Image.asset('lib/assets/iconeApp2.png',)),
-              ),
-              
+              IconeGrandeApp(),
+
               CampoTexto(controller: _emailController, label: 'EMAIL'),
         
               CampoTexto(controller: _senhaController, label: 'SENHA'),
