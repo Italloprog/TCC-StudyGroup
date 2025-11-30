@@ -24,15 +24,19 @@ class _PaginaInicialState extends State<PaginaInicial> {
           ),
 
           Text('Você ainda não participa de nenhum grupo',style: TextStyle(fontSize: 20),),
+
           const SizedBox(
             height: 60,
           ),
+
           Botao(label: 'Criar novo grupo', onPressed: (){
             Navigator.pushNamed(context, '/novo_grupo');
           }),
+
           const SizedBox(
             height: 20,
           ),
+          
           Botao(label: 'Entrar em grupo existente', onPressed: (){
             Navigator.pushNamed(context, '/encontrar_grupo');
           })

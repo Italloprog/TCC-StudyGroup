@@ -53,7 +53,7 @@ class _NovoGrupoPageState extends State<NovoGrupoPage> {
             child: Text('Modos de pontuação:\nDias ativos ou pontos por atividade. ', style: TextStyle(fontSize: 18, color: Color.fromARGB(255, 217, 217, 217), ), textAlign: TextAlign.center,),
           ),
           
-          Botao(label: 'Criar novo grupo', onPressed: (){})
+          Botao(label: 'Criar novo grupo', onPressed: (){ Navigator.pushNamed(context, '/criar_grupo');},),
         ],
       ),
     );

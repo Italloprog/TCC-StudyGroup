@@ -1,9 +1,9 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:study_group/views/widgets/Icone_grande_app.dart';
 import 'package:study_group/views/widgets/botao.dart';
+import 'package:study_group/views/widgets/campo_imagem.dart';
 import 'package:study_group/views/widgets/campo_texto.dart';
 
 class CadastroPage extends StatefulWidget {
@@ -54,27 +54,23 @@ class _CadastroPageState extends State<CadastroPage> {
                   ),
                 ],
               ),
+
               Text('IMAGEM DE PERFIL',style: TextStyle(fontSize: 18),),
+
               SizedBox(
                 height: 10,
               ),
-              IconButton(onPressed: (){},
-               icon: Icon(Icons.add_a_photo),
-               style: ButtonStyle(
-                backgroundColor: WidgetStateProperty.all(Color.fromARGB(255, 217, 217, 217)),
-                padding: WidgetStateProperty.all(EdgeInsets.all(40)),
-      
-                iconSize: WidgetStatePropertyAll(35)
-                ),
-              ),
+
+              CampoImagem(),
+
               SizedBox(
                 height: 10,
               ),
             
-              CampoTexto(controller: _nomeController,label: 'NOME'),
-              CampoTexto(controller: _emailController,label: 'EMAIL'),
-              CampoTexto(controller: _senhaController,label: 'SENHA'),
-              CampoTexto(controller: _confirmaSenhaController,label: 'CONFIRMAR SENHA'),
+              CampoTexto(controller: _nomeController, label: 'NOME'),
+              CampoTexto(controller: _emailController, label: 'EMAIL'),
+              CampoTexto(controller: _senhaController, label: 'SENHA', campoSenha: true,),
+              CampoTexto(controller: _confirmaSenhaController, label: 'CONFIRMAR SENHA', campoSenha: true,),
 
               SizedBox(
                 height: 25,

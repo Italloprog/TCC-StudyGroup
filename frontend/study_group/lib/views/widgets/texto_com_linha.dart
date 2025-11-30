@@ -6,16 +6,13 @@ class TextoComLinha extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text(texto,
+    return Text(texto,
             style: TextStyle(
               fontSize: 20,
               decoration: TextDecoration.underline,
               decorationColor: Colors.white,
               decorationThickness: 1.0,
-            )),
-      ],
-    );
+              ),
+            );
   }
 }

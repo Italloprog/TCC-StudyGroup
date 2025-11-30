@@ -16,7 +16,9 @@ class PerfilPage extends StatelessWidget {
               radius: 80,
               backgroundImage: NetworkImage('https://pbs.twimg.com/media/FsGrGIBXgAA1OQI.jpg'),
             ),
+
             const SizedBox(height: 20),
+
             const Text(
               'Nome do Usuário',
               style: TextStyle(fontSize: 24),
@@ -108,7 +110,8 @@ class PerfilPage extends StatelessWidget {
                 ],
               ),
             ),
-             Container(
+            
+            Container(
               margin: const EdgeInsets.only(top: 10),
               width: 380,
               height: 60,

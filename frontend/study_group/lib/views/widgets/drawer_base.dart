@@ -29,7 +29,6 @@ class _DrawerBaseState extends State<DrawerBase> {
               child:  CircleAvatar(backgroundImage: NetworkImage('https://pbs.twimg.com/media/FsGrGIBXgAA1OQI.jpg',),),
             ),
 
-
             accountName: 
             InkWell(
               child: Text('Nome do Usuário'),
@@ -38,11 +37,21 @@ class _DrawerBaseState extends State<DrawerBase> {
               },
             ),
             
-            accountEmail: Text('10 pontos', 
-              style: TextStyle(
-                color: Colors.grey,
-              ),
-            ),
+            accountEmail: 
+                Row(
+                  children: [
+                    Icon(Icons.local_fire_department,color: const Color.fromARGB(255, 253, 122, 46),),
+                    Text('5 dias | 10 pontos', 
+                    style: TextStyle(
+                      color: Colors.grey,
+                    ),
+                    ),
+                  ],
+                ),
+              
+
+            
+            
           ),
           Container(
             margin: const EdgeInsets.only(left: 15, top: 20),
@@ -64,13 +73,23 @@ class _DrawerBaseState extends State<DrawerBase> {
                 child: TextoComLinha(texto: 'Entrar em grupo existente',)
               ),
 
-              TextoComLinha(texto: 'Pesquisar perfis'),
+              InkWell(
+                onTap: () {
+                  Navigator.pushNamed(context, '/pesquisar_perfis');
+                },
+                child: TextoComLinha(texto: 'Pesquisar perfis'),
+              ),
             
               SizedBox(
                 height: 80,
               ),
               
-              TextoComLinha(texto: 'Configurações',),
+              InkWell(
+                onTap: () {
+                  Navigator.pushNamed(context, '/configuracoes');
+                },
+                child: TextoComLinha(texto: 'Configurações',),
+              ),
               
               InkWell(
                 child: TextoComLinha(texto: 'Sobre',),

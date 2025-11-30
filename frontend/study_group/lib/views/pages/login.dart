@@ -23,12 +23,13 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             children: [
               Text('Bem-vindo ao StudyGroup', style: TextStyle(fontSize: 20),),
+              
               IconeGrandeApp(),
 
               CampoTexto(controller: _emailController, label: 'EMAIL'),
-        
-              CampoTexto(controller: _senhaController, label: 'SENHA'),
-        
+
+              CampoTexto(controller: _senhaController, label: 'SENHA', campoSenha: true,),
+
               SizedBox(
                 height: 90,
               ),

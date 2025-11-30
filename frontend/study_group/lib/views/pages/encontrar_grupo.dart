@@ -22,7 +22,7 @@ class _EncontrarGrupoPageState extends State<EncontrarGrupoPage> {
           IconeGrandeApp(),
           CampoTexto(controller: _codigoGrupoController, label: 'Digite o código de convite do grupo',),
           Spacer(),
-          Botao(label: 'Entrar em grupo existente', onPressed: (){}),
+          Botao(label: 'Entrar em grupo existente', onPressed: (){Navigator.pushNamed(context, '/grupo');}),
           Spacer(),
         ],
         ),
