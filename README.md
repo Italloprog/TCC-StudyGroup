@@ -17,3 +17,5 @@ publicações para obter pontos e competir em um ranking, este aplicativo busca 
 [Protótipo das telas](https://www.figma.com/design/PY1hlDrOrwwtSGWP1ilP5p/StudyGroup?node-id=0-1&t=wGEnD0Qo80VA244N-1)
 
 [Figma Prototype](https://www.figma.com/proto/PY1hlDrOrwwtSGWP1ilP5p/StudyGroup?node-id=0-1&t=wGEnD0Qo80VA244N-1)
+
+[Diagrama de Navegação](https://canva.link/yc8h7ku5cet1j1w)
