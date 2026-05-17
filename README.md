@@ -20,4 +20,6 @@ publicações para obter pontos e competir em um ranking, este aplicativo busca 
 
 [Diagrama de Navegação](https://canva.link/yc8h7ku5cet1j1w)
 
+[Jornada do Usuário](https://canva.link/yfkt519c9csh97i)
+
 [Descrição de Caso de Uso](https://docs.google.com/document/d/19Rw2zpYwtUkfsrelo-ZZ7uoUX1a60c5GF2cTCjBpY5E/edit?usp=sharing)
