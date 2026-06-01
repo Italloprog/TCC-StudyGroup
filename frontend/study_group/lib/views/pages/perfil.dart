@@ -9,7 +9,9 @@ class PerfilPage extends StatelessWidget {
     return ScafolldBase(
       title: 'Perfil',
       body: Center(
+        
         child: Column(
+          
           children: [
             const SizedBox(height: 15),
             CircleAvatar(
@@ -27,7 +29,7 @@ class PerfilPage extends StatelessWidget {
             const SizedBox(height: 15),
 
             const SizedBox(
-              width: 380,
+              width: 320,
               child: Text(
                 'Pequena biografia descritiva e personalizavel escrita pelo usuario de no maximo 100 caracteres.',
                 style: TextStyle(fontSize: 18),
@@ -36,7 +38,7 @@ class PerfilPage extends StatelessWidget {
             ),
             
             Container(
-              margin: const EdgeInsets.only(top: 20),
+              margin: const EdgeInsets.only(top: 20, left: 20, right: 20),
               width: 380,
               height: 60,
               padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -61,7 +63,7 @@ class PerfilPage extends StatelessWidget {
               ),
             ),
             Container(
-              margin: const EdgeInsets.only(top: 10),
+              margin: const EdgeInsets.only(top: 10, left: 20, right: 20),
               width: 380,
               height: 60,
               padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -86,7 +88,7 @@ class PerfilPage extends StatelessWidget {
               ),
             ),
             Container(
-              margin: const EdgeInsets.only(top: 10),
+              margin: const EdgeInsets.only(top: 10, left: 20, right: 20),
               width: 380,
               height: 60,
               padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -112,7 +114,7 @@ class PerfilPage extends StatelessWidget {
             ),
             
             Container(
-              margin: const EdgeInsets.only(top: 10),
+              margin: const EdgeInsets.only(top: 10, left: 20, right: 20),
               width: 380,
               height: 60,
               padding: const EdgeInsets.symmetric(horizontal: 10),

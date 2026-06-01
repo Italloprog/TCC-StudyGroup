@@ -18,17 +18,18 @@ class _CardPostagemState extends State<CardPostagem> {
     return Card(
             color: Color.fromARGB(255, 58, 17, 89),
             
-            margin: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+            margin: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
             elevation: 2,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30),
+              borderRadius: BorderRadius.circular(22),
             ),
             child: InkWell(
               
-              onTap: () {},
+              onTap: () {
+                Navigator.pushNamed(context, '/postagem');
+              },
               child: ListTile(
                 minVerticalPadding: 20,
-                
                 
                 leading: CircleAvatar(
                   backgroundImage: NetworkImage(widget.imagem),
@@ -37,8 +38,9 @@ class _CardPostagemState extends State<CardPostagem> {
                 
                 title: Text(
                   widget.titulo,
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                 ),
+
                 subtitle: Text(
                   widget.autor,
                   style: TextStyle(color: Colors.white),

@@ -15,15 +15,15 @@ class _CardPerfilState extends State<CardPerfil> {
   @override
   Widget build(BuildContext context) {
     return Container(
-              margin: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
-              padding: const EdgeInsets.all(15),
+              margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+              padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
                 color: Color.fromARGB(255, 116, 52, 184),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.end,
-                spacing: 19.5,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   CircleAvatar(backgroundImage: NetworkImage(widget.imagem_perfil),radius: 50,),
                   
@@ -39,7 +39,6 @@ class _CardPerfilState extends State<CardPerfil> {
                     ],
                   ),
 
-                  Spacer(),
 
                   TextButton(
                           onPressed: () {
@@ -49,7 +48,7 @@ class _CardPerfilState extends State<CardPerfil> {
                           foregroundColor: Colors.white,
                           backgroundColor: Color.fromARGB(255, 58, 17, 89),
                         ),
-                        child: Text('ver detalhes'),
+                        child: Text('ver perfil', style: TextStyle(fontSize: 14),),
                       ),
                   
                 ],

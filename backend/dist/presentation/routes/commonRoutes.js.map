@@ -1,0 +1,1 @@
+{"version":3,"file":"commonRoutes.js","sourceRoot":"","sources":["../../../src/presentation/routes/commonRoutes.ts"],"names":[],"mappings":";;;AAEA,MAAsB,YAAY;IAK9B,YAAY,IAAY,EAAC,GAAgB,EAAC,IAAY;QAClD,IAAI,CAAC,IAAI,GAAG,IAAI,CAAC;QACjB,IAAI,CAAC,GAAG,GAAG,GAAG,CAAC;QACf,IAAI,CAAC,IAAI,GAAG,IAAI,CAAC;QACjB,IAAI,CAAC,eAAe,EAAE,CAAC;IAC3B,CAAC;IAAA,CAAC;CAGL;AAbD,oCAaC"}

@@ -1,0 +1,1 @@
+{"version":3,"file":"commentEntity.js","sourceRoot":"","sources":["../../../src/domain/entities/commentEntity.ts"],"names":[],"mappings":";;;AAEA,MAAa,UAAU;IAKnB,YAAY,aAAqB,EAAE,eAAwB,EAAE,QAAgB;QACzE,IAAI,CAAC,aAAa,GAAG,aAAa,CAAC;QACnC,IAAI,CAAC,eAAe,GAAG,eAAe,CAAC;QACvC,IAAI,CAAC,QAAQ,GAAG,QAAQ,CAAC;IAC7B,CAAC;CACJ;AAVD,gCAUC"}

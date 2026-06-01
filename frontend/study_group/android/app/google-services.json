@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "205373578718",
+    "project_id": "studygroup-b1fdc",
+    "storage_bucket": "studygroup-b1fdc.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:205373578718:android:9c7fb110e58a3189d2514f",
+        "android_client_info": {
+          "package_name": "com.italloProg.study_group"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB38K0hUzoEsxyObYRxILnQvs1WYku4rDI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

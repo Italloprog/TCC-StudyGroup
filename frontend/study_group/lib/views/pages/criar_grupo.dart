@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:study_group/views/widgets/botao.dart';
 import 'package:study_group/views/widgets/campo_selecao.dart';
@@ -23,32 +24,43 @@ class _CriarGrupoPageState extends State<CriarGrupoPage> {
   Widget build(BuildContext context) {
     return ScafolldBase(
       title: 'Criar novo grupo',
-      body: Column(
-        children: [
-          GrandeCampoImagem(label: 'Imagem do grupo'),
-          CampoTexto(
-            controller: nomeGrupoController,
-            label: 'NOME DO GRUPO',
-          ),
-          CampoTexto(
-            controller: descricaoGrupoController,
-            label: 'DESCRIÇÃO',
-            extendido: true,
-          ),
-          SizedBox(height: 20),
-          CampoSelecao(
-            selected: selectedModoPontuacao,
-            opcoes: ['Pontos por Atividade', 'Pontos por Dias Ativos'],
-          ),
-          SizedBox(height: 20),
-          CampoSelecao(
-            selected: selectedQtdDias,
-            opcoes: ['10 dias', '20 dias', '30 dias', '40 dias', '60 dias'],
-          ),
-          Spacer(),
-          Botao(label: 'Criar novo grupo', onPressed: () {Navigator.pushNamed(context, '/grupo');},),
-          Spacer(),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            GrandeCampoImagem(label: 'Imagem do grupo'),
+
+            CampoTexto(
+              controller: nomeGrupoController,
+              label: 'NOME DO GRUPO',
+              hint: 'Digite o nome do grupo...',  
+            ),
+
+            CampoTexto(
+              controller: descricaoGrupoController,
+              label: 'DESCRIÇÃO',
+              extendido: true,
+              hint: 'Descreva o grupo...',
+            ),
+
+            SizedBox(height: 20),
+
+            CampoSelecao(
+              selected: selectedModoPontuacao,
+              opcoes: ['Pontos por Atividade', 'Pontos por Dias Ativos'],
+            ),
+            SizedBox(height: 20),
+            CampoSelecao(
+              selected: selectedQtdDias,
+              opcoes: ['10 dias', '20 dias', '30 dias', '40 dias', '60 dias'],
+            ),
+            SizedBox(height: 20),
+
+            Botao(label: 'Criar novo grupo', onPressed: () {Navigator.pushNamed(context, '/grupo');},),
+          
+            SafeArea(child: Container()), // Garante que o conteúdo não fique atrás da barra de navegação
+          ],
+        ),
       ),
     );
   }

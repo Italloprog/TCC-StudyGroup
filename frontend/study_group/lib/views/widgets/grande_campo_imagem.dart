@@ -14,7 +14,7 @@ class _GrandeCampoImagemState extends State<GrandeCampoImagem> {
   Widget build(BuildContext context) {
     return Container(
               margin: EdgeInsets.symmetric(vertical: 20),
-              width: 350,
+              width: 320,
               height: 150,
               decoration: BoxDecoration(
                   color: Color.fromARGB(255, 217, 217, 217),

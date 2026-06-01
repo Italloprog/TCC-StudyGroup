@@ -22,19 +22,21 @@ class _NovaPostagemPageState extends State<NovaPostagemPage> {
   Widget build(BuildContext context) {
     return ScafolldArrowback(
         title: 'Nova Postagem',
-        body: Column(
-          children: [
-            GrandeCampoImagem(label: 'Imagem da Postagem'),
-            CampoTexto(controller: tituloPostagemController, label: 'TÍTULO',),
-            CampoTexto(controller: descricaoPostagemController, label: 'DESCRIÇÃO', extendido: true,),
-            SizedBox(height: 20),
-            CampoSelecao(selected: selectedTempoDeEstudo, opcoes: ['15 minutos', '30 minutos', '45 minutos', '60 minutos','75 minutos', '90 minutos', '115 minutos', '120 minutos']),
-            SizedBox(height: 20),
-            CampoSelecao(selected: selectedAreaDeEstudo, opcoes: ['Matemática', 'Quimica', 'História', 'Geografia', 'Física', 'Biologia', 'Linguas', 'Artes', 'Sociologia', 'Filosofia', 'Tecnologia', 'Outros']),
-            Spacer(),
-            Botao(label: 'Adicionar', onPressed: (){Navigator.pushNamed(context, '/grupo');},),
-            Spacer(),
-          ],
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              GrandeCampoImagem(label: 'Imagem da Postagem'),
+              CampoTexto(controller: tituloPostagemController, label: 'TÍTULO', hint: 'Digite o título da postagem...',),
+              CampoTexto(controller: descricaoPostagemController, label: 'DESCRIÇÃO', hint: 'Digite a descrição da postagem...', extendido: true,),
+              SizedBox(height: 20),
+              CampoSelecao(selected: selectedTempoDeEstudo, opcoes: ['15 minutos', '30 minutos', '45 minutos', '60 minutos','75 minutos', '90 minutos', '115 minutos', '120 minutos']),
+              SizedBox(height: 20),
+              CampoSelecao(selected: selectedAreaDeEstudo, opcoes: ['Matemática', 'Quimica', 'História', 'Geografia', 'Física', 'Biologia', 'Linguas', 'Artes', 'Sociologia', 'Filosofia', 'Tecnologia', 'Outros']),
+              SizedBox(height: 20),
+              Botao(label: 'Adicionar', onPressed: (){Navigator.pushNamed(context, '/grupo');},),
+              SafeArea(child: Container()), // Garante que o conteúdo não fique atrás da barra de navegação
+            ],
+          ),
         )
     );
   }

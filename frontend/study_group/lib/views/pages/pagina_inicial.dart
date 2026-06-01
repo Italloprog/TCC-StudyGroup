@@ -23,7 +23,10 @@ class _PaginaInicialState extends State<PaginaInicial> {
             height: 20,
           ),
 
-          Text('Você ainda não participa de nenhum grupo',style: TextStyle(fontSize: 20),),
+          const SizedBox(
+              width: 340,
+              child: Text('Você ainda não participa de nenhum grupo',style: TextStyle(fontSize: 20), textAlign: TextAlign.center,),
+            ),
 
           const SizedBox(
             height: 60,

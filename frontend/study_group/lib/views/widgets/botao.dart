@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Botao extends StatefulWidget {
-  const Botao({super.key, required this.label, required this.onPressed, this.padding_h = 60,this.padding_v = 35});
+  const Botao({super.key, required this.label, required this.onPressed, this.padding_h = 45,this.padding_v = 20,});
 
   final String label;
   final VoidCallback onPressed;

@@ -3,7 +3,6 @@ import 'package:study_group/views/widgets/botao.dart';
 import 'package:study_group/views/widgets/campo_selecao.dart';
 import 'package:study_group/views/widgets/campo_texto.dart';
 import 'package:study_group/views/widgets/grande_campo_imagem.dart';
-import 'package:study_group/views/widgets/icone_grande_app.dart';
 import 'package:study_group/views/widgets/scafolld_arrowback.dart';
 
 class EditarGrupoPage extends StatefulWidget {
@@ -22,33 +21,39 @@ class _EditarGrupoPageState extends State<EditarGrupoPage> {
   Widget build(BuildContext context) {
     return ScafolldArrowback(
         title: 'Editar Grupo',
-        body: Column(
-        children: [
-          GrandeCampoImagem(label: 'Imagem do grupo'),
-          CampoTexto(
-            controller: nomeGrupoController,
-            label: 'NOME DO GRUPO',
-          ),
-          CampoTexto(
-            controller: descricaoGrupoController,
-            label: 'DESCRIÇÃO',
-            extendido: true,
-          ),
-          SizedBox(height: 20),
-          CampoSelecao(
-            selected: selectedModoPontuacao,
-            opcoes: ['Pontos por Atividade', 'Pontos por Dias Ativos'],
-          ),
-          SizedBox(height: 20),
-          CampoSelecao(
-            selected: selectedQtdDias,
-            opcoes: ['10 dias', '20 dias', '30 dias', '40 dias', '60 dias'],
-          ),
-          Spacer(),
-          Botao(label: 'Editar grupo', onPressed: () {Navigator.pushNamed(context, '/grupo');},),
-          Spacer(),
-        ],
-      ),
+        body: SingleChildScrollView(
+          child: Column(
+          children: [
+            GrandeCampoImagem(label: 'Imagem do grupo'),
+            CampoTexto(
+              controller: nomeGrupoController,
+              label: 'NOME DO GRUPO',
+              hint: 'Digite o nome do grupo...',
+            ),
+            CampoTexto(
+              controller: descricaoGrupoController,
+              label: 'DESCRIÇÃO',
+              hint: 'Descreva o grupo...',
+              extendido: true,
+            ),
+            SizedBox(height: 20),
+            CampoSelecao(
+              selected: selectedModoPontuacao,
+              opcoes: ['Pontos por Atividade', 'Pontos por Dias Ativos'],
+            ),
+            SizedBox(height: 20),
+            CampoSelecao(
+              selected: selectedQtdDias,
+              opcoes: ['10 dias', '20 dias', '30 dias', '40 dias', '60 dias'],
+            ),
+            SizedBox(height: 20),
+
+            Botao(label: 'Editar grupo', onPressed: () {Navigator.pushNamed(context, '/grupo');},),
+
+            SafeArea(child: Container()), // Garante que o conteúdo não fique atrás da barra de navegação
+          ],
+                ),
+        ),
       ) ;
       
   }

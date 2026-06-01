@@ -60,18 +60,23 @@ class _ScafolldBaseState extends State<ScafolldBase> {
           : null,
       bottomNavigationBar: widget.egrupo
           ? BottomAppBar(
+            
               color: const Color.fromARGB(255, 58, 17, 89), // Fundo roxo escuro
               elevation: 0,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+
                 children: [
-                  TextButton(
-                    onPressed: () {},
+                InkWell(
+                  
+                    borderRadius: BorderRadius.circular(10),
+
+                    onTap: () {Navigator.pushNamed(context, '/detalhes');},
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Icon(Icons.manage_accounts,
-                            color: Colors.white, size: 28),
+                            color: Colors.white, size: 26),
                         Text(
                           "Detalhes",
                           style: TextStyle(color: Colors.white, fontSize: 16),
@@ -79,12 +84,15 @@ class _ScafolldBaseState extends State<ScafolldBase> {
                       ],
                     ),
                   ),
-                  TextButton(
-                    onPressed: () {},
+              
+                  InkWell(
+                   borderRadius: BorderRadius.circular(10),
+                    onTap: () {Navigator.pushNamed(context, '/classificacoes');},
                     child: Column(
+                      
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Icon(Icons.emoji_events, color: Colors.white, size: 28),
+                        Icon(Icons.emoji_events, color: Colors.white, size: 26),
                         Text(
                           "Classificações",
                           style: TextStyle(color: Colors.white, fontSize: 16),
