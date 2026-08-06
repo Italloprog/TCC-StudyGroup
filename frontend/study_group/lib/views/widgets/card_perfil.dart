@@ -1,11 +1,15 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:study_group/views/pages/perfil.dart';
 
 class CardPerfil extends StatefulWidget {
-  const CardPerfil({super.key, required this.nome_perfil, required this.pontos_perfil, required this.imagem_perfil,});
+  const CardPerfil({super.key, required this.nome_perfil, required this.pontos_perfil, this.imagem_perfil, required this.indexPesquisado});
 
   final String nome_perfil;
   final int pontos_perfil;
-  final String imagem_perfil;
+  final String? imagem_perfil;
+  final int indexPesquisado;
 
   @override
   State<CardPerfil> createState() => _CardPerfilState();
@@ -25,7 +29,16 @@ class _CardPerfilState extends State<CardPerfil> {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  CircleAvatar(backgroundImage: NetworkImage(widget.imagem_perfil),radius: 50,),
+                  CircleAvatar(
+                    radius: 50,
+                    backgroundImage: (widget.imagem_perfil != null && widget.imagem_perfil!.isNotEmpty)
+                      ? MemoryImage(base64Decode(widget.imagem_perfil!)) // Transforma texto em imagem
+                      : null,
+            
+                    child: (widget.imagem_perfil == null || widget.imagem_perfil!.isEmpty)
+                      ? const Icon(Icons.person, size: 50)
+                      : null,
+                    ),
                   
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,7 +55,11 @@ class _CardPerfilState extends State<CardPerfil> {
 
                   TextButton(
                           onPressed: () {
-                          Navigator.pushNamed(context, '/perfil');
+                          Navigator.push(context,
+                                  MaterialPageRoute(
+                                    builder: (context) => PerfilPage(indexPesquisado: widget.indexPesquisado,),
+                                  ),
+                                );
                         },
                         style: TextButton.styleFrom(
                           foregroundColor: Colors.white,

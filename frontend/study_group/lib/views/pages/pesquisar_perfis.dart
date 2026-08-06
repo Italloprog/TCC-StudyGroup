@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:study_group/controllers/providers/usuario_controller.dart';
 import 'package:study_group/views/widgets/card_perfil.dart';
 import 'package:study_group/views/widgets/scafolld_base.dart';
 
@@ -14,6 +16,8 @@ class _PesquisarPerfisPageState extends State<PesquisarPerfisPage> {
 
   @override
   Widget build(BuildContext context) {
+    final usuarioController = context.watch<UsuarioController>();
+
     return ScafolldBase(
       title: 'Pesquisar perfis',
       body: SafeArea(
@@ -23,6 +27,12 @@ class _PesquisarPerfisPageState extends State<PesquisarPerfisPage> {
                 margin: const EdgeInsets.only(top: 10, bottom: 10, left: 40, right: 40),
                 child: TextFormField(
                   controller: _perfisController,
+                  onChanged: (valor) {
+                  // Só pesquisa se tiver pelo menos 2 letras (economiza leituras no banco)
+                  if (valor.length >= 2 || valor.isEmpty) {
+                    context.read<UsuarioController>().pesquisar(valor);
+                  }
+                },
                   decoration: const InputDecoration(
                     filled: true,
                     fillColor: Color.fromARGB(255, 116, 52, 184),
@@ -38,17 +48,26 @@ class _PesquisarPerfisPageState extends State<PesquisarPerfisPage> {
               ),
   
               Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    CardPerfil(nome_perfil: 'Pessoa 1', pontos_perfil: 10, imagem_perfil: 'https://pbs.twimg.com/media/FsGrGIBXgAA1OQI.jpg',),
-                    CardPerfil(nome_perfil: 'Pessoa 2', pontos_perfil: 20, imagem_perfil: 'https://pbs.twimg.com/media/FSOGBy3XsAIxTiN.png',),
-                    CardPerfil(nome_perfil: 'Pessoa 3', pontos_perfil: 30, imagem_perfil: 'https://64.media.tumblr.com/0f7f8ecbb9df092d53582bf230e6e550/027836647fc0de15-c7/s1280x1920/830a5f592dd22d55f6d5f9210dec70fa8f32bb85.jpg',),
-                    CardPerfil(nome_perfil: 'Pessoa 4', pontos_perfil: 40, imagem_perfil: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_fF60wLcJobL2nXnwxFtoSql0EKCXoTBjZQ&s',),
-                    CardPerfil(nome_perfil: 'Pessoa 5', pontos_perfil: 50, imagem_perfil: 'https://i.pinimg.com/564x/8e/65/a2/8e65a2720c3395ed9144cf623e4d168a.jpg',),
-                  ],
-                ),
-              ),
+              child: usuarioController.isLoading
+                  ? const Center(child: CircularProgressIndicator())
+                  : usuarioController.resultados.isEmpty
+                      ? const Center(child: Text("Nenhum usuário encontrado."))
+                      : ListView.builder(
+                          itemCount: usuarioController.resultados.length,
+                          itemBuilder: (context, index) {
+                            final usuario = usuarioController.resultados[index];
+
+                            return CardPerfil(
+                                nome_perfil: usuario['nome'] ?? 'Sem nome',
+                                // Se não tiver sistema de pontos ainda, passa 0
+                                pontos_perfil: usuario['pontos'] ?? 0, 
+                                // Passa a string em base64 do banco
+                                imagem_perfil: usuario['fotoPerfil'] ?? '',
+                                // Se não tiver foto, passa string vazia
+                                indexPesquisado: index, 
+                              );
+                          },
+                        ),
             ),
             ],
           ),

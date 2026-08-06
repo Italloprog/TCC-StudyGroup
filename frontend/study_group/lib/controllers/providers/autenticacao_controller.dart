@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:study_group/controllers/gateways/autenticacao_gateway.dart';
@@ -7,6 +9,7 @@ class AutenticacaoController extends ChangeNotifier {
   final AutenticacaoGateway authGateway = AutenticacaoRepository();
   bool isLoading = false;
 
+  Stream<bool> get statusSessao => authGateway.statusSessao;
   // Retorna true se o login der certo, false se falhar
   Future<bool> realizarLogin(String email, String password) async {
     isLoading = true;
@@ -25,9 +28,9 @@ class AutenticacaoController extends ChangeNotifier {
       notifyListeners();
     }
   }
-
+  
   // Retorna true se o cadastro der certo
-  Future<bool> realizarCadastro(String nome, String email, String password) async {
+  Future<bool> realizarCadastro(String nome, String email, String password, File? fotoPerfil) async {
     isLoading = true;
     notifyListeners();
 
@@ -35,7 +38,7 @@ class AutenticacaoController extends ChangeNotifier {
       if (nome.isEmpty || email.isEmpty || password.isEmpty) {
         throw Exception("Preencha todos os campos.");
       }
-      await authGateway.register(nome.trim(), email.trim(), password.trim());
+      await authGateway.register(nome.trim(), email.trim(), password.trim(), fotoPerfil);
       return true;
     } catch (e) {
       // ignore: avoid_print
@@ -83,6 +86,34 @@ class AutenticacaoController extends ChangeNotifier {
     } catch (e) {
       // ignore: avoid_print
       print("Erro geral ao excluir conta: $e");
+      return false;
+    } finally {
+      isLoading = false;
+      notifyListeners();
+    }
+  }
+
+  Future<bool> alterarSenha(String novaSenha) async {
+    isLoading = true;
+    notifyListeners();
+
+    try {
+      await authGateway.alterarSenha(novaSenha);
+      return true;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'requires-recent-login') {
+        // ignore: avoid_print
+        print("O usuário precisa fazer login novamente antes de alterar a senha.");
+      } else if (e.code == 'weak-password') {
+        // ignore: avoid_print
+        print("A nova senha é muito fraca.");
+      }
+      // ignore: avoid_print
+      print("Erro ao alterar senha: $e");
+      return false;
+    } catch (e) {
+      // ignore: avoid_print
+      print("Erro geral ao alterar senha: $e");
       return false;
     } finally {
       isLoading = false;

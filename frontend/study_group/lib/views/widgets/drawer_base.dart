@@ -1,4 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:study_group/controllers/providers/usuario_controller.dart';
 import 'package:study_group/views/widgets/texto_com_linha.dart';
 
 class DrawerBase extends StatefulWidget {
@@ -9,8 +13,12 @@ class DrawerBase extends StatefulWidget {
 }
 
 class _DrawerBaseState extends State<DrawerBase> {
+  
+
   @override
   Widget build(BuildContext context) {
+    final usuarioController = context.watch<UsuarioController>();
+    
     return Drawer(
       backgroundColor: const Color.fromARGB(255, 116, 52, 184),
       child: ListView(
@@ -26,12 +34,19 @@ class _DrawerBaseState extends State<DrawerBase> {
               onTap: () {
                 Navigator.pushNamed(context, '/perfil');
               },
-              child:  CircleAvatar(backgroundImage: NetworkImage('https://pbs.twimg.com/media/FsGrGIBXgAA1OQI.jpg',),),
+              child:  CircleAvatar(
+                          backgroundImage: usuarioController.dadosUsuario?['fotoPerfil'] != null
+                            ? MemoryImage(base64Decode(usuarioController.dadosUsuario?['fotoPerfil']))
+                            : null, // Decodifica o texto para Imagem!fit: BoxFit.cover,
+                          child: (usuarioController.dadosUsuario?['fotoPerfil'] == null || usuarioController.dadosUsuario?['fotoPerfil']!.isEmpty)
+                            ? const Icon(Icons.person, size: 50)
+                            : null,
+                    ),
             ),
 
             accountName: 
             InkWell(
-              child: Text('Nome do Usuário'),
+              child: Text(usuarioController.dadosUsuario?['nome'] ?? 'Nome do Usuário'),
               onTap: () {
                 Navigator.pushNamed(context, '/perfil');
               },
@@ -41,7 +56,7 @@ class _DrawerBaseState extends State<DrawerBase> {
                 Row(
                   children: [
                     Icon(Icons.local_fire_department,color: const Color.fromARGB(255, 253, 122, 46),),
-                    Text('5 dias | 10 pontos', 
+                    Text('${usuarioController.dadosUsuario?['ofensivaAtual'] ?? '0'} dias | ${usuarioController.dadosUsuario?['totalPontos'] ?? '0'} pontos'  , 
                     style: TextStyle(
                       color: Colors.grey,
                     ),
@@ -59,6 +74,14 @@ class _DrawerBaseState extends State<DrawerBase> {
               crossAxisAlignment: CrossAxisAlignment.start,
               spacing: 15,
               children: [
+
+                InkWell(
+                  onTap: () {
+                    Navigator.pushNamed(context, '/pagina_inicial');
+                  },
+                  child: TextoComLinha(texto: 'Meus grupos',)
+                ),
+
                 InkWell(
                   onTap: () {
                     Navigator.pushNamed(context, '/novo_grupo');

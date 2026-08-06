@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:study_group/controllers/providers/autenticacao_controller.dart';
+import 'package:study_group/controllers/providers/usuario_controller.dart';
 import 'package:study_group/views/widgets/botao.dart';
 import 'package:study_group/views/widgets/campo_imagem.dart';
 import 'package:study_group/views/widgets/campo_texto.dart';
@@ -35,6 +36,9 @@ class _ConfiguracoesPageState extends State<ConfiguracoesPage> {
   
   @override
   Widget build(BuildContext context) {
+    final authController = context.watch<AutenticacaoController>();
+    final usuarioController = context.watch<UsuarioController>();
+
     return ScafolldBase(
       title: 'Configurações',
       body: SingleChildScrollView(
@@ -48,31 +52,104 @@ class _ConfiguracoesPageState extends State<ConfiguracoesPage> {
         
               Row(children: [SizedBox(width: 20,),TextoComLinha(texto: 'Alterar imagem de perfil',),],),
 
-              CampoImagem(),
+              CampoImagem(onpressed: _pegarImagemDaGaleria, imagem: _imagem),
+
+              usuarioController.isLoading
+              ? const CircularProgressIndicator() // Mostra o loading enquanto carrega
+              : Botao(
+                label: 'confirmar',
+                onPressed: () async {
+                  
+                  if (_imagem == null) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Selecione uma imagem antes de confirmar.')),
+                    );
+                    return;
+                  }
+
+                  final bool sucesso = await context.read<UsuarioController>().alterarFotoPerfil(_imagem!);
+
+                  if (sucesso && context.mounted) {
+              
+                    setState(() {
+                      _imagem = null; // Limpa a imagem após a alteração
+                    });
+
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const Text('Imagem de Perfil alterada com sucesso!'),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: const Text('OK'),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+
+                  }else if (context.mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Erro ao alterar imagem de perfil. Tente novamente.')),
+                    );
+                  }
+                },
+
+                padding_v: 15,
+              ),
 
               Row(children: [SizedBox(width: 20,),TextoComLinha(texto: 'Alterar biografia'),],),
               
               CampoTexto(controller: BiografiaController,hint: 'Digite sua nova biografia...',),
         
-              Botao(
+              usuarioController.isLoading
+              ? const CircularProgressIndicator() // Mostra o loading enquanto carrega
+              : Botao(
                 label: 'confirmar',
-                onPressed: (){
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
+                onPressed: () async {
+                  
+                  final novaBiografia = BiografiaController.text.trim();
+
+                  if (novaBiografia.isEmpty) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('A biografia não pode estar vazia.')),
+                    );
+                    return;
+                  }
+
+                  final sucesso = await  context.read<UsuarioController>().alterarBiografia(novaBiografia);
+
+                  if (sucesso && context.mounted) {
+                    BiografiaController.clear(); // Limpa o campo após a alteração
+
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+
                       return AlertDialog(
                         title: const Text('Biografia alterada com sucesso!'),
-                        actions: [
-                          TextButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            child: const Text('OK'),
-                          ),
-                        ],
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: const Text('OK'),
+                            ),
+                          ],
                       );
                     },
-                  );
+                    );
+                  } else if (context.mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Erro ao alterar biografia. Tente novamente.')),
+                    );
+                  }
+
+                  
                 },
                 padding_v: 15,
               ),
@@ -83,32 +160,71 @@ class _ConfiguracoesPageState extends State<ConfiguracoesPage> {
               CampoTexto(controller: SenhaController,campoSenha: true,hint: 'Digite sua nova senha...',),
               CampoTexto(controller: ConfirmarSenhaController,campoSenha: true,hint: 'Confirme sua nova senha...',),
         
-              Botao(
+              authController.isLoading
+                    ? const CircularProgressIndicator() // Mostra o loading enquanto carrega
+                    : Botao(
                 label: 'confirmar',
-                 onPressed: (){
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: const Text('Senha alterada com sucesso!'),
-                        actions: [
-                          TextButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            child: const Text('OK'),
-                          ),
-                        ],
-                      );
-                    },
-                  );
+                 onPressed: () async {
+                  // 1. Validações básicas
+                  String senha = SenhaController.text;
+                  String confirmarSenha = ConfirmarSenhaController.text;
+
+                  if (senha.isEmpty || senha.length < 6) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('A senha deve ter pelo menos 6 caracteres.')),
+                    );
+                    return;
+                  }
+
+                  if (senha != confirmarSenha) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('As senhas não coincidem!')),
+                    );
+                    return;
+                  }
+
+                  // 2. Chama o Controller
+                  final sucesso = await context.read<AutenticacaoController>().alterarSenha(senha);
+
+                  if (sucesso && context.mounted) {
+                    // Limpa os campos após o sucesso
+                    SenhaController.clear();
+                    ConfirmarSenhaController.clear();
+
+                    // Mostra o seu dialog de sucesso original
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const Text('Senha alterada com sucesso!'),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: const Text('OK',style: TextStyle(color: Colors.white)),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  } else if (context.mounted) {
+                    // Em caso de erro (ex: tempo de login expirado)
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Erro ao alterar senha. Por segurança, faça login novamente e tente de novo.'),
+                      ),
+                    );
+                  }
                  },
                   padding_v: 15,
                   ),
         
               Row(children: [SizedBox(width: 20,),TextoComLinha(texto: 'Excluir conta'),],),
         
-              Botao(
+              authController.isLoading
+                    ? const CircularProgressIndicator() // Mostra o loading enquanto carrega
+                    : Botao(
                 label: 'excluir', 
                 onPressed: () async {
                   // É MUITO importante perguntar antes de excluir!
@@ -151,7 +267,9 @@ class _ConfiguracoesPageState extends State<ConfiguracoesPage> {
         
               Row(children: [SizedBox(width: 20,),TextoComLinha(texto: 'Sair da conta'),],),
 
-              Botao(
+              authController.isLoading
+                    ? const CircularProgressIndicator() // Mostra o loading enquanto carrega
+                    : Botao(
                 label: 'sair', 
                 onPressed: () async {
                   bool confirmar = await showDialog(

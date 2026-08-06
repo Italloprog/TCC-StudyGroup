@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:study_group/controllers/providers/usuario_controller.dart';
 import 'package:study_group/views/widgets/Icone_grande_app.dart';
 import 'package:study_group/views/widgets/botao.dart';
 import 'package:study_group/views/widgets/scafolld_base.dart';
@@ -11,8 +13,18 @@ class PaginaInicial extends StatefulWidget {
 }
 
 class _PaginaInicialState extends State<PaginaInicial> {
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await context.read<UsuarioController>().carregarPerfil();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+
     return ScafolldBase(
       body: Column(
         children: [

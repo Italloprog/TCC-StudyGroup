@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:study_group/controllers/providers/autenticacao_controller.dart';
+import 'package:study_group/controllers/providers/grupo_controller.dart';
+import 'package:study_group/controllers/providers/usuario_controller.dart';
 import 'package:study_group/views/pages/cadastro.dart';
 import 'package:study_group/views/pages/classificacoes.dart';
 import 'package:study_group/views/pages/configuracoes.dart';
@@ -18,6 +20,7 @@ import 'package:study_group/views/pages/pesquisar_perfis.dart';
 import 'package:study_group/views/pages/postagem.dart';
 import 'package:study_group/views/pages/sobre.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:study_group/views/widgets/verificador_login.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -34,6 +37,12 @@ void main() async {
         //Injetamos o Controller usando ChangeNotifierProvider.
         ChangeNotifierProvider(
           create: (context) => AutenticacaoController(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => GrupoController(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => UsuarioController(),
         ),
       ],
       child: const MyApp(), // Seu widget principal
@@ -67,7 +76,6 @@ class MyApp extends StatelessWidget {
               fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
-         
         ),
 
         textTheme: const TextTheme(
@@ -84,7 +92,7 @@ class MyApp extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
 
-      initialRoute: '/login',
+      home: const VerificadorAutenticacao(),
       routes: {
         '/login': (context) => const LoginPage(),
         '/cadastro': (context) => const CadastroPage(),

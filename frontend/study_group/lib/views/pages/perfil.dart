@@ -1,11 +1,18 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:study_group/controllers/providers/usuario_controller.dart';
 import 'package:study_group/views/widgets/scafolld_base.dart';
 
 class PerfilPage extends StatelessWidget {
-  const PerfilPage({super.key});
+  const PerfilPage({super.key, this.indexPesquisado});
+
+  final int? indexPesquisado;
 
   @override
   Widget build(BuildContext context) {
+    final usuarioController = context.watch<UsuarioController>();
+
     return ScafolldBase(
       title: 'Perfil',
       body: Center(
@@ -16,23 +23,34 @@ class PerfilPage extends StatelessWidget {
             const SizedBox(height: 15),
             CircleAvatar(
               radius: 80,
-              backgroundImage: NetworkImage('https://pbs.twimg.com/media/FsGrGIBXgAA1OQI.jpg'),
+              backgroundImage: indexPesquisado != null ? 
+                          usuarioController.resultados[indexPesquisado!]['fotoPerfil'] != null 
+                            ? MemoryImage(base64Decode(usuarioController.resultados[indexPesquisado!]['fotoPerfil']))
+                            : null
+                          : usuarioController.dadosUsuario?['fotoPerfil'] != null
+                            ? MemoryImage(base64Decode(usuarioController.dadosUsuario?['fotoPerfil']))
+                            : null,
+              child: (indexPesquisado == null && usuarioController.dadosUsuario?['fotoPerfil'] == null) || (indexPesquisado != null && usuarioController.resultados[indexPesquisado!]['fotoPerfil'] == null)
+                      ? const Icon(Icons.person, size: 90)
+                      : null,
             ),
 
             const SizedBox(height: 20),
 
-            const Text(
-              'Nome do Usuário',
+            Text(
+              indexPesquisado != null ? usuarioController.resultados[indexPesquisado!]['nome'] :
+              usuarioController.dadosUsuario?['nome'] ?? 'Nome do Usuário',
               style: TextStyle(fontSize: 24),
             ),
 
             const SizedBox(height: 15),
 
-            const SizedBox(
+            SizedBox(
               width: 320,
               child: Text(
-                'Pequena biografia descritiva e personalizavel escrita pelo usuario de no maximo 100 caracteres.',
-                style: TextStyle(fontSize: 18),
+                indexPesquisado != null ? usuarioController.resultados[indexPesquisado!]['biografia'] :
+                usuarioController.dadosUsuario?['biografia'] ?? 'Nenhuma biografia encontrada.',
+                style: const TextStyle(fontSize: 18),
                 textAlign: TextAlign.center,
               ),
             ),
@@ -57,7 +75,7 @@ class PerfilPage extends StatelessWidget {
                 children: [
                   Icon(Icons.auto_stories,color: const Color.fromARGB(255, 217, 217, 217), size: 34,),
                   Spacer(),
-                  Text('Quantia de pontos total:\n10 pontos', style: TextStyle(fontSize: 18, color: Color.fromARGB(255, 217, 217, 217),), textAlign: TextAlign.center ,),
+                  Text('Quantia de pontos total:\n${indexPesquisado != null ? usuarioController.resultados[indexPesquisado!]['totalPontos'] : usuarioController.dadosUsuario?['totalPontos'] ?? '0'} pontos', style: TextStyle(fontSize: 18, color: Color.fromARGB(255, 217, 217, 217),), textAlign: TextAlign.center ,),
                   Spacer()
                 ],
               ),
@@ -82,7 +100,7 @@ class PerfilPage extends StatelessWidget {
                 children: [
                   Icon(Icons.local_fire_department,color: const Color.fromARGB(255, 217, 217, 217), size: 34,),
                   Spacer(),
-                  Text('Maior ofensiva: 5 dias ', style: TextStyle(fontSize: 18, color: Color.fromARGB(255, 217, 217, 217),), textAlign: TextAlign.center ,),
+                  Text('Maior ofensiva: ${indexPesquisado != null ? usuarioController.resultados[indexPesquisado!]['maiorOfensiva'] : usuarioController.dadosUsuario?['maiorOfensiva'] ?? '0'} dias', style: TextStyle(fontSize: 18, color: Color.fromARGB(255, 217, 217, 217),), textAlign: TextAlign.center ,),
                   Spacer()
                 ],
               ),
@@ -133,7 +151,7 @@ class PerfilPage extends StatelessWidget {
                 children: [
                   Icon(Icons.bookmark_added,color: const Color.fromARGB(255, 217, 217, 217), size: 34,),
                   Spacer(),
-                  Text('Área mais estudada:\nMatemática', style: TextStyle(fontSize: 18, color: Color.fromARGB(255, 217, 217, 217),), textAlign: TextAlign.center ,),
+                  Text('Área mais estudada:\nSem dados.', style: TextStyle(fontSize: 18, color: Color.fromARGB(255, 217, 217, 217),), textAlign: TextAlign.center ,),
                   Spacer()
                 ],
               ),

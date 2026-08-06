@@ -20,12 +20,16 @@ class _CadastroPageState extends State<CadastroPage> {
   final TextEditingController _nomeController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _senhaController = TextEditingController();
-  final TextEditingController _confirmaSenhaController =
-      TextEditingController();
+  final TextEditingController _confirmaSenhaController = TextEditingController();
 
   Future<void> _pegarImagemDaGaleria() async {
-    final XFile? imagemSelecionada =
-        await ImagePicker().pickImage(source: ImageSource.gallery);
+    // A mágica da compressão acontece aqui
+    final XFile? imagemSelecionada = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+      imageQuality: 60, // Reduz a qualidade da imagem para 60%
+      maxWidth: 400,    // Reduz a largura máxima
+      maxHeight: 400,   // Reduz a altura máxima
+    );
 
     if (imagemSelecionada != null) {
       setState(() {
@@ -74,7 +78,9 @@ class _CadastroPageState extends State<CadastroPage> {
                 SizedBox(
                   height: 10,
                 ),
-                CampoImagem(),
+
+                CampoImagem(onpressed: _pegarImagemDaGaleria,imagem: _imagem),
+
                 SizedBox(
                   height: 10,
                 ),
@@ -116,6 +122,7 @@ class _CadastroPageState extends State<CadastroPage> {
                                 _nomeController.text,
                                 _emailController.text,
                                 _senhaController.text,
+                                _imagem, // Passando a imagem selecionada
                               );
         
                           if (sucesso && context.mounted) {

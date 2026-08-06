@@ -1,4 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:study_group/controllers/providers/usuario_controller.dart';
 import 'package:study_group/views/widgets/drawer_base.dart';
 
 class ScafolldBase extends StatefulWidget {
@@ -15,6 +19,8 @@ class ScafolldBase extends StatefulWidget {
 class _ScafolldBaseState extends State<ScafolldBase> {
   @override
   Widget build(BuildContext context) {
+    final usuarioController = context.watch<UsuarioController>();
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -29,9 +35,13 @@ class _ScafolldBaseState extends State<ScafolldBase> {
                     Scaffold.of(context).openDrawer();
                   },
                   icon: CircleAvatar(
-                      backgroundImage: NetworkImage(
-                    'https://pbs.twimg.com/media/FsGrGIBXgAA1OQI.jpg',
-                  )),
+                          backgroundImage: usuarioController.dadosUsuario?['fotoPerfil'] != null
+                            ? MemoryImage(base64Decode(usuarioController.dadosUsuario?['fotoPerfil']))
+                            : null, // Decodifica o texto para Imagem!fit: BoxFit.cover,
+                          child: (usuarioController.dadosUsuario?['fotoPerfil'] == null || usuarioController.dadosUsuario?['fotoPerfil']!.isEmpty)
+                            ? const Icon(Icons.person, size: 30)
+                            : null,
+                    ),
                 )),
         actions: widget.egrupo ? [
           Text('Faltam\n30 dias',
