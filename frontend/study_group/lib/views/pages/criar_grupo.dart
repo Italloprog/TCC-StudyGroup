@@ -69,7 +69,7 @@ class _CriarGrupoPageState extends State<CriarGrupoPage> {
 
             CampoSelecao(
               selected: selectedModoPontuacao,
-              opcoes: ['Pontos por Atividade', 'Pontos por Dias Ativos'],
+              opcoes: ['Pontos por Atividade', /*'Pontos por Dias Ativos'*/],
               onChanged: (value) {
                 setState(() {
                   selectedModoPontuacao = value;
@@ -108,7 +108,7 @@ class _CriarGrupoPageState extends State<CriarGrupoPage> {
                             const SnackBar(content: Text('Grupo criado com sucesso!')),
                           );
                           // Navega para a tela do grupo e remove a tela de criação do histórico
-                          Navigator.pushReplacementNamed(context, '/grupo');
+                          Navigator.pushReplacementNamed(context, '/pagina_inicial');
                         }else if (context.mounted) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(content: Text('Erro ao criar grupo, tente novamente.')),

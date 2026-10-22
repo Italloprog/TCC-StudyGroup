@@ -14,6 +14,7 @@ class TextoComLinha extends StatelessWidget {
               decorationColor: Colors.white,
               decorationThickness: 1.0,
               ),
+              
             );
   }
 }

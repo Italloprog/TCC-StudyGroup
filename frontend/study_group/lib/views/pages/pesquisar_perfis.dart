@@ -50,17 +50,17 @@ class _PesquisarPerfisPageState extends State<PesquisarPerfisPage> {
               Expanded(
               child: usuarioController.isLoading
                   ? const Center(child: CircularProgressIndicator())
-                  : usuarioController.resultados.isEmpty
+                  : usuarioController.resultadosPesquisa.isEmpty
                       ? const Center(child: Text("Nenhum usuário encontrado."))
                       : ListView.builder(
-                          itemCount: usuarioController.resultados.length,
+                          itemCount: usuarioController.resultadosPesquisa.length,
                           itemBuilder: (context, index) {
-                            final usuario = usuarioController.resultados[index];
+                            final usuario = usuarioController.resultadosPesquisa[index];
 
                             return CardPerfil(
                                 nome_perfil: usuario['nome'] ?? 'Sem nome',
                                 // Se não tiver sistema de pontos ainda, passa 0
-                                pontos_perfil: usuario['pontos'] ?? 0, 
+                                pontos_perfil: usuario['totalPontos'] ?? 0, 
                                 // Passa a string em base64 do banco
                                 imagem_perfil: usuario['fotoPerfil'] ?? '',
                                 // Se não tiver foto, passa string vazia

@@ -25,6 +25,28 @@ class FirebaseUsuarioRepository implements UsuarioGateway {
   }
   
   @override
+  Future<List<Map<String, dynamic>>> buscarMeusGrupos(String uid) async {
+    try {
+      // O 'arrayContains' é a ferramenta mágica do Firebase para buscar dentro de listas
+      final snapshot = await _firestore
+          .collection('grupos')
+          .where('membros', arrayContains: uid)
+          .get();
+
+      // Mapeia os documentos e embute o ID de cada grupo para podermos navegar depois
+      return snapshot.docs.map((doc) {
+        final data = doc.data();
+        data['idGrupo'] = doc.id;
+        return data;
+      }).toList();
+    } catch (e) {
+      // ignore: avoid_print
+      print("Erro ao buscar grupos do usuário: $e");
+      return [];
+    }
+  }
+
+  @override
   Future<void> alterarBiografia(String uid, String novaBiografia) async {
     
     try {

@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:study_group/controllers/providers/usuario_controller.dart';
@@ -101,6 +100,13 @@ class _DrawerBaseState extends State<DrawerBase> {
                   Navigator.pushNamed(context, '/pesquisar_perfis');
                 },
                 child: TextoComLinha(texto: 'Pesquisar perfis'),
+              ),
+
+              InkWell(
+                onTap: () {
+                  Navigator.pushNamed(context, '/analise_ia');
+                },
+                child: TextoComLinha(texto: 'Análise de IA'),
               ),
             
               SizedBox(

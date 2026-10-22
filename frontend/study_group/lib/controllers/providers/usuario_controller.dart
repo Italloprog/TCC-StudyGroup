@@ -7,12 +7,15 @@ import 'package:study_group/controllers/repositories/firebase/usuario_repository
 
 class UsuarioController extends ChangeNotifier {
   final UsuarioGateway usuarioGateway = FirebaseUsuarioRepository();
-  
+  bool isLoading = true;
+
   // Variável que vai guardar os dados para as telas lerem
   Map<String, dynamic>? dadosUsuario;
-  bool isLoading = true;
-  List<Map<String, dynamic>> resultados = [];
+  List<Map<String, dynamic>> gruposUsuario = [];
 
+  Map<String, dynamic>? dadosUsuarioPesquisado;
+  List<Map<String, dynamic>> resultadosPesquisa = [];
+  
   // Função para carregar os dados assim que o usuário logar
   Future<void> carregarPerfil() async {
     isLoading = true;
@@ -26,8 +29,16 @@ class UsuarioController extends ChangeNotifier {
       User? usuarioLogado = FirebaseAuth.instance.currentUser;
       
       if (usuarioLogado != null) {
-        // Busca os dados no Firestore através do Gateway
-        dadosUsuario = await usuarioGateway.buscarDadosUsuario(usuarioLogado.uid);
+        
+        // Busca os dados do perfil E a lista de grupos em paralelo para ser mais rápido
+        final resultados = await Future.wait([
+          // Busca os dados no Firestore através do Gateway
+          usuarioGateway.buscarDadosUsuario(usuarioLogado.uid),
+          usuarioGateway.buscarMeusGrupos(usuarioLogado.uid),
+        ]);
+
+        dadosUsuario = resultados[0] as Map<String, dynamic>?;
+        gruposUsuario = resultados[1] as List<Map<String, dynamic>>;
       }
     } catch (e) {
       // ignore: avoid_print
@@ -38,9 +49,30 @@ class UsuarioController extends ChangeNotifier {
     }
   }
 
+  Future<void> carregarPerfilPesquisado(String userId) async {
+    isLoading = true;
+    notifyListeners();
+    // O notifyListeners() aqui avisa a tela para mostrar o "loading"
+    // Use com moderação se chamar no initState, ou faça o agendamento pós-frame.
+    // Para simplificar, mudamos o estado em silêncio se for a primeira carga
+  
+    try {
+      // Busca os dados no Firestore através do Gateway
+      dadosUsuarioPesquisado = await usuarioGateway.buscarDadosUsuario(userId);
+      
+    } catch (e) {
+      // ignore: avoid_print
+      print("Erro no controller ao carregar perfil pesquisado: $e");
+    } finally {
+      isLoading = false;
+      notifyListeners(); // Avisa a interface que os dados chegaram
+    }
+  }
+
   // Função para limpar a memória quando o usuário fizer logoff
   void limparDados() {
     dadosUsuario = null;
+    gruposUsuario = []; // Limpa os grupos também no logoff
     notifyListeners();
   }
 
@@ -91,7 +123,7 @@ class UsuarioController extends ChangeNotifier {
   Future<void> pesquisar(String termo) async {
 
     if (termo.isEmpty) {
-      resultados = [];
+      resultadosPesquisa = [];
       notifyListeners();
       return;
     }
@@ -100,7 +132,7 @@ class UsuarioController extends ChangeNotifier {
     notifyListeners();
 
     try {
-      resultados = await usuarioGateway.pesquisarUsuarios(termo);
+      resultadosPesquisa = await usuarioGateway.pesquisarUsuarios(termo);
     } catch (e) {
       // ignore: avoid_print
       print("Erro no controller de pesquisa: $e");
@@ -109,4 +141,5 @@ class UsuarioController extends ChangeNotifier {
       notifyListeners();
     }
   }
+  
 }

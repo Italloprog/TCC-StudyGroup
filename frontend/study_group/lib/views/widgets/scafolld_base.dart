@@ -1,7 +1,9 @@
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:study_group/controllers/providers/grupo_controller.dart';
 import 'package:study_group/controllers/providers/usuario_controller.dart';
 import 'package:study_group/views/widgets/drawer_base.dart';
 
@@ -12,11 +14,28 @@ class ScafolldBase extends StatefulWidget {
   final String? title;
   final Widget body;
   final bool egrupo;
+  
   @override
   State<ScafolldBase> createState() => _ScafolldBaseState();
 }
 
 class _ScafolldBaseState extends State<ScafolldBase> {
+
+  int _diasRestantes() {
+    var dadosGrupo = context.read<GrupoController>().dadosGrupo;
+    if (dadosGrupo?['qtdDias'] == null || dadosGrupo?['dataInicio'] == null) {
+      return 0;
+    }
+    int formatadoQtdDias = int.parse(dadosGrupo?['qtdDias'].split(' ')[0]); // Extrai apenas o número de dias da string
+    DateTime dataInicioDate = dadosGrupo?['dataInicio']!.toDate();
+    DateTime dataAtual = DateTime.now();
+
+    DateTime dataFim = dataInicioDate.add(Duration(days: formatadoQtdDias));
+
+    int diasRestantes = (dataFim.difference(dataAtual).inDays);
+    return diasRestantes > 0 ? diasRestantes : 0;
+  }
+
   @override
   Widget build(BuildContext context) {
     final usuarioController = context.watch<UsuarioController>();
@@ -44,7 +63,7 @@ class _ScafolldBaseState extends State<ScafolldBase> {
                     ),
                 )),
         actions: widget.egrupo ? [
-          Text('Faltam\n30 dias',
+          Text('Faltam\n${_diasRestantes()} dias',
               style: TextStyle(color: Colors.white, fontSize: 12), textAlign: TextAlign.center,),
           SizedBox(width: 10),
           Icon(Icons.date_range, color: Colors.white),
@@ -53,6 +72,7 @@ class _ScafolldBaseState extends State<ScafolldBase> {
       ),
       drawer: DrawerBase(),
       body: Center(
+        
         child: widget.body,
       ),
       floatingActionButton: widget.egrupo
