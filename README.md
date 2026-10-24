@@ -25,3 +25,5 @@ publicações para obter pontos e competir em um ranking, este aplicativo busca 
 [Descrição de Caso de Uso](https://docs.google.com/document/d/19Rw2zpYwtUkfsrelo-ZZ7uoUX1a60c5GF2cTCjBpY5E/edit?usp=sharing)
 
 [Slides da Apresentação TCC-1](https://docs.google.com/presentation/d/17u5P6CR8Xz-6DewRMyF16dJr8ygB1lQivmLDQMBsOMs/edit?usp=sharing)
+
+[Pdf Monografia TCC-1](https://drive.google.com/file/d/1XbRfu713CllimXtDIYW2bkmJla6vF0Jd/view?usp=sharing)
