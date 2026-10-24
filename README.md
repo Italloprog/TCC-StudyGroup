@@ -1,6 +1,6 @@
 # StudyGroup
 
-O StudyGroup é uma aplicação pensada para dispositivos móveis, seu principal enfoque é que cada úsuario possa criar/participar de grupos de estudos com amigos e conhecidos, criando
+O StudyGroup é uma aplicação pensada para dispositivos móveis Android, seu principal enfoque é que cada úsuario possa criar/participar de grupos de estudos com amigos e conhecidos, criando
 publicações para obter pontos e competir em um ranking, este aplicativo busca atuar como um motivador social para o hábito de estudar. Seja para um desafio individual ou em grupo.
 
 ## Funcionalidades
@@ -9,6 +9,7 @@ publicações para obter pontos e competir em um ranking, este aplicativo busca 
 - Criação de Grupos.
 - Publicação de Posts e comentarios.
 - Pesquisa de Perfis.
+- Análise de estudos com Inteligência Artificial.
 
 ## Documentação
 
